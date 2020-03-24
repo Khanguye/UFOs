@@ -1,4 +1,4 @@
-var data = [
+var tableData = [
   {
     datetime: "1/1/2010",
     city: "benton",
