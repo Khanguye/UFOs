@@ -10,10 +10,39 @@ body {
   border-radius: unset;
   background-color: #000201;
 }
+footer{
+    background-image: url("/images/DoIBelieveInUFOs_01.jpg");
+    background-repeat: repeat-y;
+    background-position-x: center;
+    background-position-y: bottom;
+    background-size: cover;
+    background-color: #000201;
+}
 
 label{
     min-width: 40%;
 }
+
 select,input{
-    min-width: 50%;
+    min-width: 100%;
+}
+
+@media(min-width:1200px){
+    form ul{
+        max-width: 350px;
+    }
+}
+
+@media(min-width:700px){
+    select,input{
+        min-width: 50%;
+    }
+    
+}
+
+@media(min-width:989px){
+    select,input{
+        min-width: 100%;
+    }
+    
 }

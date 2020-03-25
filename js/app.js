@@ -1,6 +1,10 @@
 // Reference the HTML table using d3
 var tbody = d3.select("tbody");
+// init filter object
+var filterObject = {date:"",city:"",state:"",country:"",shape:""};
 
+//*===========================================================*//  
+/* Help function:  to build table data with argument data */
 function buildTable(data) {
     // First, clear out any existing data
     tbody.html("");
@@ -17,13 +21,13 @@ function buildTable(data) {
             cell.html(val);
         });
 	});
-  }
-
-
+}
+//*===========================================================*// 
+/* Help function:  get the distinct values to load filter input */
 function loadOptionFilter(data,field){
     //Select element by Id
     let el = d3.select("#"+field)
-    //group data value
+    //group data value with the map object (key value)
     let items = d3.map(tableData, i => i[field]).keys();
     //create empty option
     let iOpt = el.append("option");
@@ -31,12 +35,12 @@ function loadOptionFilter(data,field){
     iOpt.property("selected","selected");
     iOpt.text("Select a option....");
     //add option in selection
-    for(let item of items)
-    {
+    for(let item of items){
         let opt = el.append("option");
         opt.text(item);
     }
 }
+//*===========================================================*// 
 // function handleClick() {
 //     // Grab the datetime value from the filter
 //     let date = d3.select("#datetime").property("value");
@@ -56,64 +60,77 @@ function loadOptionFilter(data,field){
 //     // just be the original tableData.
 //     buildTable(filteredData);
 //   };
-
-  function resetFilterFields(){
+//*===========================================================*// 
+/* Help function:  Reset the default all filter inputs */
+function resetFilterFields(){
+    // select element and set property value to empty  
     d3.select("#datetime").property("value","");
     d3.select("#city").property("value","");
     d3.select("#state").property("value","");
     d3.select("#country").property("value","");
     d3.select("#shape").property("value","");
-  }
-
-  function handleResetClick(){
-    resetFilterFields();
-    buildTable(tableData);
-  }
-
-  function setFilterObject(){
+}
+//*===========================================================*// 
+/* Help function:  Capture all filter values from filter inputs to object */
+function setFilterObject(){
+    //select element and get property value
     filterObject.date = d3.select("#datetime").property("value");
     filterObject.city = d3.select("#city").property("value");
     filterObject.state = d3.select("#state").property("value");
     filterObject.country = d3.select("#country").property("value");
     filterObject.shape = d3.select("#shape").property("value");
-    console.log(filterObject);
-  }
-  
-  function handleChange(){
-        
-        setFilterObject()
-       
-        let filteredData = tableData;
-        
-        for(let attr in filterObject)
-        {
-            if (filterObject[attr])
-            {
-                    value = filterObject[attr];
-                    if (attr === "date")
-                    {
-                            value = value + "T00:00:00"
-                            filteredData = filteredData.filter(row => Date.parse(row.datetime) === Date.parse(value));
-                    }
-                    else
-                    {
-                        filteredData = filteredData.filter(row => row[attr] === value);
-                    }
-            }
+    console.debug(filterObject);
+}
+//*===========================================================*// 
+/* 
+Event Handler: Reset all filter inputs and reload table data 
+Reset Filters Button is binded with this
+*/
+function handleResetClick(){
+    resetFilterFields();
+    buildTable(tableData);
+}
+/* 
+Event Handler: Apply the filter on table data display
+all filter Inputs are binded with this
+*/
+function handleChange(){
+    //Capture the filter parameter with input on the from
+    setFilterObject()
+    // init data table
+    let filteredData = tableData;
+    // loop through attribute names
+    for(let attr in filterObject){
+        // the value filter is not empty and not undefine
+        let value = filterObject[attr];
+        if (value){
+                //special convertion between datetime input HTML5 to datetime
+                if (attr === "date"){
+                        //concat with Time Zone to get the local datetime
+                        value = value + "T00:00:00"
+                        //filter by date with conversion or parse value to datetime
+                        filteredData = filteredData.filter(row => Date.parse(row.datetime) === Date.parse(value));
+                }
+                else{
+                    //filter by text for the attribute name value
+                    filteredData = filteredData.filter(row => row[attr] === value);
+                }
         }
+    }
+    //re-build table data with the filter data
+    buildTable(filteredData);
+}
 
-        buildTable(filteredData);
-  }
-  // binding events
-//    d3.select("#filter-btn").on("click", handleClick);
-  d3.select("#filter-reset-btn").on("click", handleResetClick);
-  d3.selectAll("input,select").on("change", handleChange);
-
-  // init load the form
-  var filterObject = {date:"",city:"",state:"",country:"",shape:""};
-  buildTable(tableData);
-  loadOptionFilter(tableData,"city")
-  loadOptionFilter(tableData,"state")
-  loadOptionFilter(tableData,"country")
-  loadOptionFilter(tableData,"shape")
+//*===========================================================*// 
+// init load the form
+buildTable(tableData);
+loadOptionFilter(tableData,"city")
+loadOptionFilter(tableData,"state")
+loadOptionFilter(tableData,"country")
+loadOptionFilter(tableData,"shape")
+//*===========================================================*// 
+// binding events
+//d3.select("#filter-btn").on("click", handleClick);
+d3.select("#filter-reset-btn").on("click", handleResetClick);
+d3.selectAll("input,select").on("change", handleChange);
 
