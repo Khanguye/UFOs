@@ -13,29 +13,107 @@ function buildTable(data) {
         // each value as a table cell (td)
         Object.values(dataRow).forEach((val) => {
             let cell = row.append("td");
-            cell.text(val);
+            //innet html (encode html)
+            cell.html(val);
         });
 	});
   }
 
-  function handleClick() {
-    // Grab the datetime value from the filter
-    let date = d3.select("#datetime").property("value");
-    let filteredData = tableData;
-    // Check to see if a date was entered and filter the
-    // data using that date.
-    if (date) {
-      // Apply `filter` to the table data to only keep the
-      // rows where the `datetime` value matches the filter value
-      filteredData = filteredData.filter(row => row.datetime === date);
-    };
-    // Rebuild the table using the filtered data
-    // @NOTE: If no date was entered, then filteredData will
-    // just be the original tableData.
-    buildTable(filteredData);
-  };
 
-  d3.select("#filter-btn").on("click", handleClick);
+function loadOptionFilter(data,field){
+    //Select element by Id
+    let el = d3.select("#"+field)
+    //group data value
+    let items = d3.map(tableData, i => i[field]).keys();
+    //create empty option
+    let iOpt = el.append("option");
+    iOpt.property("value","");
+    iOpt.property("selected","selected");
+    iOpt.text("Select a option....");
+    //add option in selection
+    for(let item of items)
+    {
+        let opt = el.append("option");
+        opt.text(item);
+    }
+}
+// function handleClick() {
+//     // Grab the datetime value from the filter
+//     let date = d3.select("#datetime").property("value");
+//     let filteredData = tableData;
+//     // Check to see if a date was entered and filter the
+//     // data using that date.
+//     if (date) {
+//         //ISOdatetime string will convert to UTC
+//         //add T00:00:00 to show local time
+//         date = date + "T00:00:00"
+//       // Apply `filter` to the table data to only keep the
+//       // rows where the `datetime` value matches the filter value
+//       filteredData = filteredData.filter(row => Date.parse(row.datetime) === Date.parse(date));
+//     };
+//     // Rebuild the table using the filtered data
+//     // @NOTE: If no date was entered, then filteredData will
+//     // just be the original tableData.
+//     buildTable(filteredData);
+//   };
+
+  function resetFilterFields(){
+    d3.select("#datetime").property("value","");
+    d3.select("#city").property("value","");
+    d3.select("#state").property("value","");
+    d3.select("#country").property("value","");
+    d3.select("#shape").property("value","");
+  }
+
+  function handleResetClick(){
+    resetFilterFields();
+    buildTable(tableData);
+  }
+
+  function setFilterObject(){
+    filterObject.date = d3.select("#datetime").property("value");
+    filterObject.city = d3.select("#city").property("value");
+    filterObject.state = d3.select("#state").property("value");
+    filterObject.country = d3.select("#country").property("value");
+    filterObject.shape = d3.select("#shape").property("value");
+    console.log(filterObject);
+  }
   
+  function handleChange(){
+        
+        setFilterObject()
+       
+        let filteredData = tableData;
+        
+        for(let attr in filterObject)
+        {
+            if (filterObject[attr])
+            {
+                    value = filterObject[attr];
+                    if (attr === "date")
+                    {
+                            value = value + "T00:00:00"
+                            filteredData = filteredData.filter(row => Date.parse(row.datetime) === Date.parse(value));
+                    }
+                    else
+                    {
+                        filteredData = filteredData.filter(row => row[attr] === value);
+                    }
+            }
+        }
+
+        buildTable(filteredData);
+  }
+  // binding events
+//    d3.select("#filter-btn").on("click", handleClick);
+  d3.select("#filter-reset-btn").on("click", handleResetClick);
+  d3.selectAll("input,select").on("change", handleChange);
+
+  // init load the form
+  var filterObject = {date:"",city:"",state:"",country:"",shape:""};
   buildTable(tableData);
+  loadOptionFilter(tableData,"city")
+  loadOptionFilter(tableData,"state")
+  loadOptionFilter(tableData,"country")
+  loadOptionFilter(tableData,"shape")
 

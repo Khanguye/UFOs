@@ -1,0 +1,19 @@
+body {
+    color: #f7f7f7;
+}
+
+.jumbotron{
+  text-align: center;
+  background-image: url("/images/DoIBelieveInUFOs_01.jpg") ;
+  background-position: 50% 50% ; 
+  background-repeat: no-repeat;
+  border-radius: unset;
+  background-color: #000201;
+}
+
+label{
+    min-width: 40%;
+}
+select,input{
+    min-width: 50%;
+}
