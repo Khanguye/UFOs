@@ -36,10 +36,7 @@ function loadOptionFilter(data,field){
     iOpt.property("selected","selected");
     iOpt.text("Select a option....");
     //add option in selection
-    for(let item of items){
-        let opt = el.append("option");
-        opt.text(item);
-    }
+    items.forEach(item => el.append("option").text(item) );
 }
 //*===========================================================*// 
 // function handleClick() {

@@ -14,8 +14,8 @@ footer{
     background-image: url("/images/DoIBelieveInUFOs_01.jpg");
     background-repeat: repeat-y;
     background-position-x: center;
-    background-position-y: bottom;
-    background-size: cover;
+    background-position-y: 70%;
+    background-size: 88%;
     background-color: #000201;
 }
 
