@@ -1,7 +1,8 @@
 // Reference the HTML table using d3
 var tbody = d3.select("tbody");
 // init filter object
-var filterObject = {date:"",city:"",state:"",country:"",shape:""};
+// key is matched with element id
+var filterObject = {datetime:"",city:"",state:"",country:"",shape:""};
 
 //*===========================================================*//  
 /* Help function:  to build table data with argument data */
@@ -64,21 +65,13 @@ function loadOptionFilter(data,field){
 /* Help function:  Reset the default all filter inputs */
 function resetFilterFields(){
     // select element and set property value to empty  
-    d3.select("#datetime").property("value","");
-    d3.select("#city").property("value","");
-    d3.select("#state").property("value","");
-    d3.select("#country").property("value","");
-    d3.select("#shape").property("value","");
+    Object.keys(filterObject).forEach((attr) => d3.select("#"+attr).property("value","") );
 }
 //*===========================================================*// 
 /* Help function:  Capture all filter values from filter inputs to object */
 function setFilterObject(){
     //select element and get property value
-    filterObject.date = d3.select("#datetime").property("value");
-    filterObject.city = d3.select("#city").property("value");
-    filterObject.state = d3.select("#state").property("value");
-    filterObject.country = d3.select("#country").property("value");
-    filterObject.shape = d3.select("#shape").property("value");
+    Object.keys(filterObject).forEach((attr) => filterObject[attr] = d3.select("#"+attr).property("value") );
     console.debug(filterObject);
 }
 //*===========================================================*// 
@@ -100,12 +93,12 @@ function handleChange(){
     // init data table
     let filteredData = tableData;
     // loop through attribute names
-    for(let attr in filterObject){
+    Object.keys(filterObject).forEach((attr) => {
         // the value filter is not empty and not undefine
         let value = filterObject[attr];
         if (value){
                 //special convertion between datetime input HTML5 to datetime
-                if (attr === "date"){
+                if (attr === "datetime"){
                         //concat with Time Zone to get the local datetime
                         value = value + "T00:00:00"
                         //filter by date with conversion or parse value to datetime
@@ -116,7 +109,7 @@ function handleChange(){
                     filteredData = filteredData.filter(row => row[attr] === value);
                 }
         }
-    }
+    });
     //re-build table data with the filter data
     buildTable(filteredData);
 }
