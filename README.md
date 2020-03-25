@@ -43,7 +43,7 @@ The website has been finished, and the article is ready to go, but it need to im
 
 **Resources**
 --
-1. [app.js](app.js) <-- the javascript (Controller)
+1. [app.js](js/app.js) <-- the javascript (Controller)
 2. [index.html](index.html) <-- the html (Viewer)
 3. [data.js](js/data.js) <-- the data (Model)
 4. [style.css](css/style.css) <-- the UI styles
