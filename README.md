@@ -43,28 +43,28 @@ The website has been finished, and the article is ready to go, but it need to im
 
 **Resources**
 --
-1. [app.js](js/app.js) <-- the javascript (Controller)
+1. [app.js](static/js/app.js) <-- the javascript (Controller)
 2. [index.html](index.html) <-- the html (Viewer)
-3. [data.js](js/data.js) <-- the data (Model)
-4. [style.css](css/style.css) <-- the UI styles
+3. [data.js](static/js/data.js) <-- the data (Model)
+4. [style.css](static/css/style.css) <-- the UI styles
 
 **Screenshots**
 ---
 
 **Search Criteria (Filters)**
 
-![UFOs_Filters.png](UFOs_Filters.png)
+![UFOs_Filters.png](static/images/UFOs_Filters.png)
 
 **Desktop**
 
-![UFOs_Desktop.png](UFOs_Desktop.png)
+![UFOs_Desktop.png](static/imagesUFOs_Desktop.png)
 
 **Ipad or Surface**
 
-![UFOs_Ipad.png](UFOs_Ipad.png)
+![UFOs_Ipad.png](static/imagesUFOs_Ipad.png)
 
 **Iphone or Note10**
 
-![UFOs_Mobile.png](UFOs_Mobile.png)
+![UFOs_Mobile.png](static/imagesUFOs_Mobile.png)
 
 
