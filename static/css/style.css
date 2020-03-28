@@ -4,14 +4,14 @@ body {
 
 .jumbotron{
   text-align: center;
-  background-image: url("/static/images/DoIBelieveInUFOs_01.jpg") ;
+  background-image: url("../images/DoIBelieveInUFOs_01.jpg") ;
   background-position: 50% 50% ; 
   background-repeat: no-repeat;
   border-radius: unset;
   background-color: #000201;
 }
 footer{
-    background-image: url("/static/images/DoIBelieveInUFOs_01.jpg");
+    background-image: url("../images/DoIBelieveInUFOs_01.jpg");
     background-repeat: repeat-y;
     background-position-x: center;
     background-position-y: 70%;
