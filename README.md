@@ -57,14 +57,14 @@ The website has been finished, and the article is ready to go, but it need to im
 
 **Desktop**
 
-![UFOs_Desktop.png](static/imagesUFOs_Desktop.png)
+![UFOs_Desktop.png](static/images/UFOs_Desktop.png)
 
 **Ipad or Surface**
 
-![UFOs_Ipad.png](static/imagesUFOs_Ipad.png)
+![UFOs_Ipad.png](static/images/UFOs_Ipad.png)
 
 **Iphone or Note10**
 
-![UFOs_Mobile.png](static/imagesUFOs_Mobile.png)
+![UFOs_Mobile.png](static/images/UFOs_Mobile.png)
 
 
